@@ -30,10 +30,9 @@ This script is currently used on:
 
 1. **Scans for toggle blocks** with `.wp-block-obb-toggle-block` class
 2. **Extracts repository information** from Door43 URLs within each block
-3. **Queries the Door43 catalog API** to get the latest version: `https://qa.door43.org/api/v1/catalog/search?owner=X&repo=Y`
+3. **Queries the Door43 catalog API** to get the latest version: `https://git.door43.org/api/v1/catalog/search?owner=X&repo=Y`
 4. **Compares versions** and updates if a newer version is available
 5. **Updates all relevant links and text** with the new version number
-6. **Converts relative links** to absolute unfoldingword.org URLs
 
 ## Features
 
@@ -158,7 +157,7 @@ git push origin main
 The script uses the Door43 catalog API:
 
 ```javascript
-const CATALOG_API_BASE = 'https://qa.door43.org/api/v1/catalog/search';
+const CATALOG_API_BASE = 'https://git.door43.org/api/v1/catalog/search';
 ```
 
 ### URL Patterns

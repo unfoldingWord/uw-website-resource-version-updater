@@ -193,32 +193,10 @@
   }
 
   /**
-   * Updates relative links to use the unfoldingword.org domain
-   */
-  function updateRelativeLinks() {
-    const links = document.querySelectorAll('a[href], img[src], link[href]');
-
-    links.forEach(element => {
-      const attrName = element.tagName.toLowerCase() === 'img' ? 'src' : 'href';
-      const url = element.getAttribute(attrName);
-
-      if (url && url.startsWith('/') && !url.startsWith('//')) {
-        // This is a relative URL, make it absolute
-        const newUrl = 'https://unfoldingword.org' + url;
-        element.setAttribute(attrName, newUrl);
-        console.log(`Updated relative link: ${url} -> ${newUrl}`);
-      }
-    });
-  }
-
-  /**
    * Main function that processes all toggle blocks on the page
    */
   async function updateVersions() {
     console.log('Starting version update process...');
-
-    // Update relative links first
-    updateRelativeLinks();
 
     // Find all toggle blocks
     const toggleBlocks = document.querySelectorAll('.wp-block-obb-toggle-block');
