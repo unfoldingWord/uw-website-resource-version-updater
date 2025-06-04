@@ -16,7 +16,7 @@ This script automatically scans unfoldingWord web pages for resource blocks (`.w
 The script is hosted via GitHub Pages and can be embedded on any website by adding:
 
 ```html
-<script src="https://[username].github.io/uw-website-resource-version-updater/version-updater.js"></script>
+<script src="https://unfoldingword.github.io/uw-website-resource-version-updater/version-updater.js"></script>
 ```
 
 ### Current Implementation
@@ -51,7 +51,7 @@ This script is currently used on:
 For WordPress.com sites, add a **Custom HTML block** to your page:
 
 ```html
-<script src="https://[username].github.io/uw-website-resource-version-updater/version-updater.js"></script>
+<script src="https://unfoldingword.github.io/uw-website-resource-version-updater/version-updater.js"></script>
 ```
 
 ### Option 2: Any Website
@@ -59,7 +59,7 @@ For WordPress.com sites, add a **Custom HTML block** to your page:
 Add the script tag to your HTML head or before the closing `</body>` tag:
 
 ```html
-<script src="https://[username].github.io/uw-website-resource-version-updater/version-updater.js"></script>
+<script src="https://unfoldingword.github.io/uw-website-resource-version-updater/version-updater.js"></script>
 ```
 
 ### Option 3: Conditional Loading
@@ -70,7 +70,7 @@ Load only on specific pages:
 <script>
   if (window.location.pathname.includes('/for-translators/content/') || window.location.pathname.includes('/for-translators/training/')) {
     var script = document.createElement('script');
-    script.src = 'https://[username].github.io/uw-website-resource-version-updater/version-updater.js';
+    script.src = 'https://unfoldingword.github.io/uw-website-resource-version-updater/version-updater.js';
     document.head.appendChild(script);
   }
 </script>
@@ -83,7 +83,7 @@ Load only on specific pages:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/[username]/uw-website-resource-version-updater.git
+   git clone https://github.com/unfoldingword/uw-website-resource-version-updater.git
    cd uw-website-resource-version-updater
    ```
 
@@ -125,7 +125,7 @@ Load only on specific pages:
 2. **Your script will be available at:**
 
    ```
-   https://[username].github.io/uw-website-resource-version-updater/version-updater.js
+   https://unfoldingword.github.io/uw-website-resource-version-updater/version-updater.js
    ```
 
 3. **Update websites:**
@@ -148,7 +148,7 @@ git commit -m "Description of changes"
 git push origin main
 
 # 5. Changes are live immediately at:
-# https://[username].github.io/uw-website-resource-version-updater/version-updater.js
+# https://unfoldingword.github.io/uw-website-resource-version-updater/version-updater.js
 ```
 
 ## Configuration

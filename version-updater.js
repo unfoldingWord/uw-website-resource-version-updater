@@ -13,7 +13,7 @@
   const URL_PATTERNS = {
     download: /https:\/\/git\.door43\.org\/([^\/]+)\/([^\/]+)\/releases\/download\/([^\/]+)\//g,
     releases: /https:\/\/git\.door43\.org\/([^\/]+)\/([^\/]+)\/releases\/tag\/([^\/]+)/g,
-    preview: /https:\/\/preview\.door43\.org\/u\/([^\/]+)\/([^\/]+)\/([^\/]+)\//g
+    preview: /https:\/\/preview\.door43\.org\/u\/([^\/]+)\/([^\/]+)\/([^\/]+)\/?/g
   };
 
   // Pattern to match status text with version (v followed by digits and dots)
@@ -113,12 +113,20 @@
 
       // Update preview URLs
       if (href.includes('preview.door43.org')) {
-        const newHref = href.replace(
-          `/${oldVersion}/`,
-          `/${newVersion}/`
-        );
-        link.setAttribute('href', newHref);
-        console.log(`Updated preview link: ${href} -> ${newHref}`);
+        let newHref = href;
+        // Handle URLs with trailing slash
+        if (href.includes(`/${oldVersion}/`)) {
+          newHref = href.replace(`/${oldVersion}/`, `/${newVersion}/`);
+        }
+        // Handle URLs without trailing slash
+        else if (href.endsWith(`/${oldVersion}`)) {
+          newHref = href.replace(`/${oldVersion}`, `/${newVersion}`);
+        }
+
+        if (newHref !== href) {
+          link.setAttribute('href', newHref);
+          console.log(`Updated preview link: ${href} -> ${newHref}`);
+        }
       }
     });
 

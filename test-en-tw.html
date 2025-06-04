@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test en_tw Update</title>
+</head>
+
+<body>
+  <h1>Test en_tw Update</h1>
+
+  <div class="wp-block-obb-toggle-block">
+    <div class="obb-toggle-trigger">
+      <p class="obb-toggle-title">unfoldingWord® Translation Words (UTW)</p>
+    </div>
+    <div class="obb-toggle-container">
+      <div class="obb-toggle-content">
+        <p><a href="https://git.door43.org/unfoldingWord/en_tw/releases/download/v84/en_tw_v84.pdf" target="_blank"
+            rel="noreferrer noopener">Click here</a> to download the PDF</p>
+
+        <p><a href="https://preview.door43.org/u/unfoldingWord/en_tw/v84" target="_blank"
+            rel="noreferrer noopener">Click here</a> to view on the web</p>
+
+        <p>Status: Released – v84</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="version-updater.js"></script>
+
+  <script>
+    // Add some debugging
+    console.log('Page loaded, waiting for version updater...');
+    setTimeout(() => {
+      console.log('Checking final state of links:');
+      document.querySelectorAll('a[href]').forEach(link => {
+        console.log('Link:', link.href, 'Text:', link.textContent);
+      });
+      document.querySelectorAll('p').forEach(p => {
+        if (p.textContent.includes('Status:')) {
+          console.log('Status text:', p.textContent);
+        }
+      });
+    }, 3000);
+  </script>
+</body>
+
+</html>
