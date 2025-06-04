@@ -295,11 +295,11 @@ When the script runs, check the browser console for:
 Starting version update process for repos: en_tw, en_tn
 Fetching catalog data for repos: en_tw, en_tn
 Loaded catalog data for 2 repositories
-Found version update for en_tw: v84 -> v85.1
-Updating en_tw from v84 to v85.1
-Updated download link: https://git.door43.org/.../v84/... -> https://git.door43.org/.../v85.1/...
-Updated preview link: https://preview.door43.org/.../v84 -> https://preview.door43.org/.../v85.1
-Updated status text: Status: Released – v85.1
+Found version update for en_tw: v84 -> v85
+Updating en_tw from v84 to v85
+Updated download link: https://git.door43.org/.../v84/... -> https://git.door43.org/.../v85/...
+Updated preview link: https://preview.door43.org/.../v84 -> https://preview.door43.org/.../v85
+Updated status text: Status: Released – v85
 en_tn is already up to date (v84)
 Version update process completed
 ```
