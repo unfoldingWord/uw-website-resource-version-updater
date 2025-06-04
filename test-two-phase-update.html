@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Phase Update Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .test-section {
+      background: #f5f5f5;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .wp-block-obb-toggle-block {
+      border: 2px solid #007cba;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      background: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background: #007cba;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005a87;
+    }
+
+    .console-output {
+      background: #333;
+      color: #fff;
+      padding: 10px;
+      border-radius: 3px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+      font-size: 12px;
+    }
+
+    .highlight {
+      background-color: yellow;
+      color: black;
+      padding: 2px 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Two-Phase Update Process Verification</h1>
+
+  <div class="test-section">
+    <h2>Test: Object-Based API with Two-Phase Updates</h2>
+    <p>This test verifies that:</p>
+    <ol>
+      <li><strong>Phase 1:</strong> Links are immediately updated with default versions</li>
+      <li><strong>Phase 2:</strong> Catalog API is queried and links updated again if newer versions exist</li>
+    </ol>
+
+    <button onclick="testTwoPhaseUpdate()">Test Two-Phase Update</button>
+    <button onclick="testWithOlderDefaults()">Test with Older Default Versions</button>
+    <button onclick="clearConsole()">Clear Console</button>
+
+    <h3>Console Output:</h3>
+    <div id="console-output" class="console-output"></div>
+  </div>
+
+  <!-- Test Repository Block: en_tw -->
+  <div class="wp-block-obb-toggle-block">
+    <h3>English Translation Words</h3>
+    <p>Status: In Progress - <span class="highlight">v80</span></p>
+    <p>Downloads:
+      <a href="https://git.door43.org/unfoldingWord/en_tw/releases/download/v80/en_tw_v80.pdf">PDF v80</a> |
+      <a href="https://git.door43.org/unfoldingWord/en_tw/releases/tag/v80">Release v80</a> |
+      <a href="https://preview.door43.org/u/unfoldingWord/en_tw/v80">Preview v80</a>
+    </p>
+  </div>
+
+  <!-- Test Repository Block: en_tn -->
+  <div class="wp-block-obb-toggle-block">
+    <h3>English Translation Notes</h3>
+    <p>Status: Released - <span class="highlight">v82</span></p>
+    <p>Downloads:
+      <a href="https://git.door43.org/unfoldingWord/en_tn/releases/download/v82/en_tn_v82.pdf">PDF v82</a> |
+      <a href="https://git.door43.org/unfoldingWord/en_tn/releases/tag/v82">Release v82</a> |
+      <a href="https://preview.door43.org/u/unfoldingWord/en_tn/v82/">Preview v82</a>
+    </p>
+  </div>
+
+  <script src="version-updater.js"></script>
+  <script>
+    // Override console methods to capture output
+    const originalConsoleLog = console.log;
+    const originalConsoleError = console.error;
+    const originalConsoleWarn = console.warn;
+
+    function logToDiv(message, type = 'log') {
+      const consoleDiv = document.getElementById('console-output');
+      const timestamp = new Date().toLocaleTimeString();
+      const prefix = type === 'error' ? '[ERROR]' : type === 'warn' ? '[WARN]' : '[LOG]';
+      consoleDiv.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+      consoleDiv.scrollTop = consoleDiv.scrollHeight;
+    }
+
+    console.log = function (...args) {
+      originalConsoleLog.apply(console, args);
+      logToDiv(args.join(' '), 'log');
+    };
+
+    console.error = function (...args) {
+      originalConsoleError.apply(console, args);
+      logToDiv(args.join(' '), 'error');
+    };
+
+    console.warn = function (...args) {
+      originalConsoleWarn.apply(console, args);
+      logToDiv(args.join(' '), 'warn');
+    };
+
+    function testTwoPhaseUpdate() {
+      console.log('=== Testing Two-Phase Update Process ===');
+      console.log('Current versions in HTML: en_tw v80, en_tn v82');
+      console.log('Default versions to apply: en_tw v84, en_tn v84');
+      console.log('Expected behavior: Update to v84, then to catalog versions if newer');
+      console.log('');
+
+      updateVersions({
+        en_tw: 'v84',
+        en_tn: 'v84'
+      });
+    }
+
+    function testWithOlderDefaults() {
+      console.log('=== Testing with Older Default Versions ===');
+      console.log('This should update to defaults first, then catalog versions');
+      console.log('');
+
+      updateVersions({
+        en_tw: 'v83',
+        en_tn: 'v83'
+      });
+    }
+
+    function clearConsole() {
+      document.getElementById('console-output').textContent = '';
+    }
+
+    // Auto-run on page load
+    window.addEventListener('load', function () {
+      setTimeout(() => {
+        console.log('=== Two-Phase Update Verification Test ===');
+        console.log('This page tests the new object-based API with two-phase updates');
+        console.log('');
+        console.log('Key Features:');
+        console.log('1. Object parameter: { repo: "version", ... }');
+        console.log('2. Immediate updates with default versions');
+        console.log('3. Secondary updates from catalog API if newer versions exist');
+        console.log('');
+        console.log('Click "Test Two-Phase Update" to see the process in action');
+        console.log('');
+      }, 100);
+    });
+  </script>
+</body>
+
+</html>

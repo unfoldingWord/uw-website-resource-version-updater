@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Version Updater Test Suite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .test-section {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .test-section h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .toggle-block {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 3px;
+    }
+
+    .console-output {
+      background: #000;
+      color: #0f0;
+      padding: 10px;
+      font-family: monospace;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      background: #007cba;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005a85;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Version Updater Test Suite</h1>
+
+  <div class="test-section">
+    <h3>Test 1: Single Repository (en_tw)</h3>
+    <div class="wp-block-obb-toggle-block">
+      <p><a href="https://git.door43.org/unfoldingWord/en_tw/releases/download/v84/en_tw_v84.pdf"
+          target="_blank">Download PDF</a></p>
+      <p><a href="https://preview.door43.org/u/unfoldingWord/en_tw/v84" target="_blank">View on web</a></p>
+      <p>Status: Released – v84</p>
+    </div>
+    <button onclick="testSingleRepo()">Test en_tw Update</button>
+  </div>
+
+  <div class="test-section">
+    <h3>Test 2: Multiple Repositories</h3>
+    <div class="wp-block-obb-toggle-block">
+      <h4>Translation Words (en_tw)</h4>
+      <p><a href="https://git.door43.org/unfoldingWord/en_tw/releases/download/v84/en_tw_v84.pdf"
+          target="_blank">Download PDF</a></p>
+      <p><a href="https://preview.door43.org/u/unfoldingWord/en_tw/v84" target="_blank">View on web</a></p>
+      <p>Status: Released – v84</p>
+    </div>
+
+    <div class="wp-block-obb-toggle-block">
+      <h4>Translation Notes (en_tn)</h4>
+      <p><a href="https://git.door43.org/unfoldingWord/en_tn/releases/tag/v84" target="_blank">Release Tag</a></p>
+      <p><a href="https://preview.door43.org/u/unfoldingWord/en_tn/v84/" target="_blank">View on web</a></p>
+      <p>Status: In Progress – v84</p>
+    </div>
+
+    <button onclick="testMultipleRepos()">Test Multiple Updates</button>
+  </div>
+
+  <div class="test-section">
+    <h3>Test 3: URL Variations</h3>
+    <div class="wp-block-obb-toggle-block">
+      <p><a href="https://git.door43.org/unfoldingWord/en_ust/releases/download/v84/en_ust_v84.pdf"
+          target="_blank">Download with slash</a></p>
+      <p><a href="https://preview.door43.org/u/unfoldingWord/en_ust/v84/" target="_blank">Preview with slash</a></p>
+      <p><a href="https://preview.door43.org/u/unfoldingWord/en_ult/v84" target="_blank">Preview without slash</a></p>
+      <p>Status: In Progress – v84</p>
+    </div>
+    <button onclick="testUrlVariations()">Test URL Variations</button>
+  </div>
+
+  <div class="test-section">
+    <h3>Test 4: Custom API Base URL</h3>
+    <div class="wp-block-obb-toggle-block">
+      <h4>Test Custom API (will fail gracefully)</h4>
+      <p><a href="https://git.door43.org/unfoldingWord/en_tw/releases/download/v84/en_tw_v84.pdf"
+          target="_blank">Download PDF</a></p>
+      <p><a href="https://preview.door43.org/u/unfoldingWord/en_tw/v84" target="_blank">View on web</a></p>
+      <p>Status: Released – v84</p>
+    </div>
+    <button onclick="testCustomApi()">Test Custom API URL</button>
+  </div>
+
+  <div class="test-section">
+    <h3>Test 5: API Response Simulation</h3>
+    <button onclick="testApiCall()">Test Direct API Call</button>
+    <button onclick="clearLogs()">Clear Console</button>
+  </div>
+
+  <div class="console-output" id="console">
+    Console output will appear here...
+  </div>
+
+  <script src="version-updater.js"></script>
+
+  <script>
+    // Override console.log to capture output
+    const originalLog = console.log;
+    const originalWarn = console.warn;
+    const originalError = console.error;
+    const consoleDiv = document.getElementById('console');
+
+    function addToConsole(message, type = 'log') {
+      const color = type === 'error' ? '#f00' : type === 'warn' ? '#ff0' : '#0f0';
+      consoleDiv.innerHTML += `<div style="color: ${color}">[${new Date().toLocaleTimeString()}] ${message}</div>`;
+      consoleDiv.scrollTop = consoleDiv.scrollHeight;
+    }
+
+    console.log = function (...args) {
+      originalLog.apply(console, args);
+      addToConsole(args.join(' '), 'log');
+    };
+
+    console.warn = function (...args) {
+      originalWarn.apply(console, args);
+      addToConsole(args.join(' '), 'warn');
+    };
+
+    console.error = function (...args) {
+      originalError.apply(console, args);
+      addToConsole(args.join(' '), 'error');
+    };
+
+    function testSingleRepo() {
+      console.log('=== Testing Single Repository (en_tw) ===');
+      updateVersions({ en_tw: 'v85' });
+    }
+
+    function testMultipleRepos() {
+      console.log('=== Testing Multiple Repositories ===');
+      updateVersions({ en_tw: 'v85', en_tn: 'v85' });
+    }
+
+    function testUrlVariations() {
+      console.log('=== Testing URL Variations ===');
+      updateVersions({ en_ust: 'v85', en_ult: 'v85' });
+    }
+
+    function testCustomApi() {
+      console.log('=== Testing Custom API Base URL ===');
+      console.log('This test will demonstrate error handling with a fake API URL');
+      updateVersions({ en_tw: 'v85' }, 'https://fake-api.example.com/v1/catalog/search');
+    }
+
+    async function testApiCall() {
+      console.log('=== Testing Direct API Call ===');
+      try {
+        const response = await fetch('https://git.door43.org/api/v1/catalog/search?owner=unfoldingWord&repo=en_tw,en_tn');
+        const data = await response.json();
+        console.log('API Response:', JSON.stringify(data, null, 2));
+
+        if (data && data.data) {
+          console.log('Repositories found:');
+          data.data.forEach(entry => {
+            console.log(`- ${entry.name}: ${entry.branch_or_tag_name}`);
+          });
+        }
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    }
+
+    function clearLogs() {
+      consoleDiv.innerHTML = 'Console cleared...<br>';
+    }
+
+    // Auto-run initial test on page load
+    window.addEventListener('load', () => {
+      console.log('Version Updater Test Suite loaded');
+      console.log('Click the test buttons to verify functionality');
+    });
+  </script>
+</body>
+
+</html>
