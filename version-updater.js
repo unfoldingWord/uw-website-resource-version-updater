@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  const CATALOG_API_BASE = 'https://qa.door43.org/api/v1/catalog/search';
+  const CATALOG_API_BASE = 'https://git.door43.org/api/v1/catalog/search';
 
   // Regex patterns to match different URL types
   const URL_PATTERNS = {
