@@ -26,12 +26,14 @@
       </div>
     </div>
   </div>
-
   <script src="version-updater.js"></script>
 
   <script>
+    // Call the updateVersions function with the repositories to update
+    updateVersions(['en_tw']);
+
     // Add some debugging
-    console.log('Page loaded, waiting for version updater...');
+    console.log('Page loaded, updateVersions called...');
     setTimeout(() => {
       console.log('Checking final state of links:');
       document.querySelectorAll('a[href]').forEach(link => {

@@ -3814,7 +3814,7 @@
 
 
 
-											<p>Status: Released &#8211; Version 9</p>
+											<p>Status: Released &#8211; v9</p>
 
 
 
@@ -4621,7 +4621,7 @@
 
 
 
-											<p>Status: Complete &#8211; Version 2.1.31</p>
+											<p>Status: Complete &#8211; v2.1.31</p>
 
 
 
@@ -4705,7 +4705,7 @@
 
 
 
-											<p>Status: Version 2.0.1</p>
+											<p>Status: v2.0.1</p>
 
 
 
@@ -6306,6 +6306,20 @@
 
 	<!-- Version Updater Script -->
 	<script src="version-updater.js"></script>
+	<script>
+		// Update versions for all repositories on the content page
+		updateVersions({
+			en_obs: 'v9.1',
+			en_tn: 'v85.1',
+			en_ult: 'v85.1',
+			en_ust: 'v85.1',
+			en_tw: 'v85.1',
+			en_tq: 'v85.1',
+			'el-x-koine_ugnt': 'v0.34.1',
+			hbo_uhb: 'v2.1.31.1',
+		},
+			'https://qa.door43.org/api/v1/catalog/search');
+	</script>
 
 	<script src="https://unfoldingword.org/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6"
 		id="contact-form-7-js"></script>

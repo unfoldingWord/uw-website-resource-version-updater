@@ -10,6 +10,17 @@ Thumbs.db
 .AppleDouble
 .LSOverride
 
+# Development backup files
+*-old.js
+*-new.js
+*.backup
+*.old
+*.orig
+
+# Test files
+test-*.js
+test-api-*.html
+
 # Windows
 Thumbs.db
 ehthumbs.db
